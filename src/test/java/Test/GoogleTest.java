@@ -3,6 +3,7 @@ package Test;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.junit.After;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -20,12 +21,20 @@ public class GoogleTest {
 
 
     @org.junit.Test
-    public void myTest(){
+    public void myTest() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver","/home/vlad/chromedriver/chromedriver");
-        driver = new ChromeDriver();
+        ChromeOptions chromeOptions = new ChromeOptions();
+        driver = new ChromeDriver(chromeOptions);
+
         homePage = new HomePage(driver);
         homePage.openGooglePage(googlePage);
+        driver.manage().window().maximize();
         homePage.scrollToTableOfAllGoogleProducts();
         homePage.getAllLinksAndClickOnIt();
+    }
+
+    @After
+    public void close(){
+        homePage.closePage();
     }
 }

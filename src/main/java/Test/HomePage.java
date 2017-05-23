@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -44,20 +46,27 @@ public class HomePage {
 
     }
 
-    public void getAndroidText() {
+    public void getAllLinksAndClickOnIt() {
+        List<WebElement> elements = driver.findElements(By.xpath("//*[@class='product-icon-list']//a"));
+        for (WebElement element : elements) {
 
-        System.out.println(android.getAttribute("p"));
-    }
 
-    public void getAllLinksAndClickOnIt(){
-        List<WebElement> element = driver.findElements(By.xpath("//a[@class='lazy-img-loaded']"));
-        for (WebElement element1 : element ){
-            element1.click();
+            element.click();
+            long start = System.currentTimeMillis();
+            element.getText();
+
+            long finish = System.currentTimeMillis();
+            long totalTime = finish - start;
+            System.out.println(element.getText());
+            System.out.println("Total Time for page load - " + totalTime);
         }
     }
 
-    public void getLoadingTimeOfEveryPage(){
 
+
+
+    public void closePage() {
+        driver.close();
     }
 }
 
